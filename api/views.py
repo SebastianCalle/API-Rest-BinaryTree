@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import BinaryTreeSerializer
-from .binary import Code, insert
+from .binary import Code, insert, lca
 from binarytree import Node
 from .models import BinaryTree
 
@@ -9,7 +9,11 @@ from .models import BinaryTree
 @api_view(['POST'])
 def apiCreateTree(request):
     # View for create a Binary Tree
-    data = request.data.split(',')
+    print(type(request.data))
+    if type(request.data) == dict:
+        data = request.data.get('data').split(',')
+    else:
+        data = request.data.split(',')
     root = Node(int(data[0]))
     for i in range(1, len(data)):
         insert(root, Node(int(data[i])))
@@ -27,6 +31,7 @@ def apiCreateTree(request):
     }
     return Response(tree_dict)
 
+
 @api_view(['GET'])
 def apiList(request):
    tree_list = BinaryTree.objects.all()
@@ -42,6 +47,19 @@ def apiList(request):
    return Response(all_trees)
 
 
-#@api_view(['POST'])
-#def apiLowAncestor(request):
+@api_view(['POST'])
+def apiLowAncestor(request):
+    if type(request.data) == dict:
+        data = request.data.get('data').split(',')
+    else:
+        data = request.data.split(',')
+    id = data[0]
+    obj = BinaryTree.objects.filter(id=id)[0]
+    print(type(obj.data))
+    code = Code()
+    tree = code.deserialize(obj.data)
+    print(tree)
 
+    ancestor = lca(tree,int(data[1]),int(data[2]))
+
+    return Response({'LowerCommonAncestor': ancestor})
