@@ -6,6 +6,17 @@ from binarytree import Node
 from .models import BinaryTree
 
 
+@api_view(['GET'])
+def apiOverview(request):
+    # Show the urls avalible
+    overview = {
+        'list': '/api/list',
+        'create': '/api/create',
+        'Lowest Common Ancestor': '/api/lca',
+    }
+    return Response(overview)
+
+
 @api_view(['POST'])
 def apiCreateTree(request):
     # View for create a Binary Tree
