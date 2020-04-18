@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('create', views.apiCreateTree, name='createTree'),
     path('list', views.apiList, name='apiList'),
+    path('lca', views.apiLowAncestor, name='apiLowAncestor'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
