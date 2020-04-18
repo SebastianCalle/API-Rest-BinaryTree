@@ -54,7 +54,10 @@ def apiLowAncestor(request):
     else:
         data = request.data.split(',')
     id = data[0]
-    obj = BinaryTree.objects.filter(id=id)[0]
+    try:
+        obj = BinaryTree.objects.filter(id=id)[0]
+    except:
+        return Response({'error': 'Id is not valid for a binary Tree'})
     print(type(obj.data))
     code = Code()
     tree = code.deserialize(obj.data)
