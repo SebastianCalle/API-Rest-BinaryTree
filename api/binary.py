@@ -1,5 +1,5 @@
 import collections
-from binarytree import Node, build
+from binarytree import Node
 
 
 def insert(root, node):

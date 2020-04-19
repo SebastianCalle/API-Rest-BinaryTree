@@ -20,7 +20,6 @@ def apiOverview(request):
 @api_view(['POST'])
 def apiCreateTree(request):
     # View for create a Binary Tree
-    print(type(request.data))
     if type(request.data) == dict:
         data = request.data.get('data').split(',')
     else:
@@ -45,17 +44,17 @@ def apiCreateTree(request):
 
 @api_view(['GET'])
 def apiList(request):
-   tree_list = BinaryTree.objects.all()
-   all_trees = []
-   for tree in tree_list:
-       tree_dict = {
-           'id': tree.id,
-           'data': tree.data,
-           'created': tree.created_at,
-       }
-       all_trees.append(tree_dict)
+    tree_list = BinaryTree.objects.all()
+    all_trees = []
+    for tree in tree_list:
+        tree_dict = {
+            'id': tree.id,
+            'data': tree.data,
+            'created': tree.created_at,
+        }
+        all_trees.append(tree_dict)
 
-   return Response(all_trees)
+    return Response(all_trees)
 
 
 @api_view(['POST'])
@@ -69,11 +68,10 @@ def apiLowAncestor(request):
         obj = BinaryTree.objects.filter(id=id)[0]
     except:
         return Response({'error': 'Id is not valid for a binary Tree'})
-    print(type(obj.data))
     code = Code()
     tree = code.deserialize(obj.data)
     print(tree)
 
-    ancestor = lca(tree,int(data[1]),int(data[2]))
+    ancestor = lca(tree, int(data[1]), int(data[2]))
 
     return Response({'LowerCommonAncestor': ancestor})
