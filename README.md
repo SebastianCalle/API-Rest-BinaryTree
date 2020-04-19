@@ -60,7 +60,7 @@ The URLs that are available and you can use the interface graphic use the API:
 You can see the ID of the Tree when create new Tree or when list all Binary Tree stored, also the date when was create and the data serialize.
 ```JSON
 {
-    "id": "d445958c-c9c2-41a0-b1e7-076e43afe28e"
+    "id": "d445958c-c9c2-41a0-b1e7-076e43afe28e",
     "created": "2020-04-19T03:04:22.626664Z",
     "data": "51,22,None,23,None,None,52,None,73,None,84,None,None",
 }
